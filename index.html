@@ -47,7 +47,7 @@ html, body {
     
 #heartButton {
     left: 30%;
-    top: 65%;
+    top: 70%;
     width: 40%;
     height: 15%;
     z-index: 100;
@@ -67,7 +67,7 @@ html, body {
 
 #luckyNumber {
     position: absolute;
-    top: 52%;
+    top: 47%;
     left: 0;
     width: 100%;
     text-align: center;
@@ -76,13 +76,22 @@ html, body {
     color: white;
 }
 
-.homeButton {
+.fortuneHome {
     position: absolute;
     right: 5%;
     top: 10%;
     width: 30%;
     height: 15%;
-    z-index: 999;
+    z-index: 9999;
+}
+
+.numberHome {
+    position: absolute;
+    right: 5%;
+    bottom: 5%;
+    width: 30%;
+    height: 15%;
+    z-index: 9999;
 }
 </style>
 </head>
@@ -101,7 +110,7 @@ html, body {
 
     <div id="fortuneText"></div>
 
-    <div class="homeButton click-area" onclick="goHome()"></div>
+    <div class="fortuneHome click-area" onclick="goHome()"></div>
 </div>
 
 <div id="numberScreen" class="screen">
@@ -109,7 +118,7 @@ html, body {
 
     <div id="luckyNumber"></div>
 
-    <div class="homeButton click-area" onclick="goHome()"></div>
+    <div class="numberHome click-area" onclick="goHome()"></div>
 </div>
 
 <script>
