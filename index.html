@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>지우개 요정</title>
+
+<style>
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: sans-serif;
+}
+
+.screen {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    display: none;
+}
+
+.screen.active {
+    display: block;
+}
+
+.bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.click-area {
+    position: absolute;
+    cursor: pointer;
+}
+
+#appleButton {
+    left: 25%;
+    top: 25%;
+    width: 50%;
+    height: 30%;
+}
+
+#heartButton {
+    left: 30%;
+    top: 65%;
+    width: 40%;
+    height: 15%;
+}
+
+#fortuneText {
+    position: absolute;
+    top: 30%;
+    left: 15%;
+    width: 70%;
+    text-align: center;
+    font-size: 5vw;
+    line-height: 1.7;
+    color: #6a5a42;
+    white-space: pre-line;
+}
+
+#luckyNumber {
+    position: absolute;
+    top: 45%;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 20vw;
+    font-weight: bold;
+    color: white;
+}
+
+.homeButton {
+    position: absolute;
+    right: 10%;
+    top: 15%;
+    width: 20%;
+    height: 10%;
+}
+</style>
+</head>
+
+<body>
+
+<div id="mainScreen" class="screen active">
+    <img src="메인.png" class="bg">
+
+    <div id="appleButton" class="click-area"></div>
+    <div id="heartButton" class="click-area"></div>
+</div>
+
+<div id="fortuneScreen" class="screen">
+    <img src="운세.png" class="bg">
+
+    <div id="fortuneText"></div>
+
+    <div class="homeButton click-area" onclick="goHome()"></div>
+</div>
+
+<div id="numberScreen" class="screen">
+    <img src="행운숫자.png" class="bg">
+
+    <div id="luckyNumber"></div>
+
+    <div class="homeButton click-area" onclick="goHome()"></div>
+</div>
+
+<script>
+
+const fortunes = [
+`피할 수 없으면 즐기자!
+어떤 억까가 있어도 스스로를 믿자.
+나는 언제나 네 편이야!`,
+
+`오늘은 나비효과!
+작은 변화가 큰 결과를 만들어 낼 거야.
+망설여졌던 일이 있다면 한번 도전해 봐!`,
+
+`오늘은 뭐든 할 수 있는 날!
+왠지 느낌이 좋은데?
+자신감을 갖고 하루를 보내보자!`,
+
+`조금은 우울한 날일지 몰라.
+마음이 울적할 때는 전부 털어놔도 돼!
+주변에 이야기 듣기를 좋아하는 친구가 있지 않아?`,
+
+`진짜로 중요한 게 뭘까?
+오늘만큼은 네 마음을 좀 더 들여다봐!
+가장 중요한 건 너니까.`,
+
+`진짜 실패는 포기하는 거야.
+아무리 힘들어도 포기하지 말고
+마음 단단히 먹어!`,
+
+`오늘은 집중이 필요한 날이야!
+중요한 걸 놓치지 않게 집중력을 발휘해 보자.`,
+
+`때가 되면 알게 될 거야.
+미래가 불확실하다고 해서 미리 걱정하지 마.
+좋은 일이 기다리고 있어!`,
+
+`"나는 잘 될 거라고"
+끊임없이 주문을 외워봐!
+지금 필요한 건 자신감을 높인 채 유지하는 거야!`,
+
+`오늘 비가 온다면 행운이 같이 올 거야!
+기우제를 지내보자.`
+];
+
+function todaySeed() {
+    const today = new Date();
+    return Number(
+        today.getFullYear().toString() +
+        (today.getMonth()+1).toString().padStart(2,'0') +
+        today.getDate().toString().padStart(2,'0')
+    );
+}
+
+function getTodayFortune() {
+    return fortunes[todaySeed() % fortunes.length];
+}
+
+function getLuckyNumber() {
+    return (todaySeed() % 99) + 1;
+}
+
+document.getElementById("appleButton").onclick = () => {
+
+    document.getElementById("fortuneText").innerText =
+        getTodayFortune();
+
+    showScreen("fortuneScreen");
+};
+
+document.getElementById("heartButton").onclick = () => {
+
+    document.getElementById("luckyNumber").innerText =
+        getLuckyNumber();
+
+    showScreen("numberScreen");
+};
+
+function showScreen(id) {
+    document.querySelectorAll(".screen").forEach(s=>{
+        s.classList.remove("active");
+    });
+
+    document.getElementById(id)
+        .classList.add("active");
+}
+
+function goHome() {
+    showScreen("mainScreen");
+}
+
+</script>
+
+</body>
+</html>
